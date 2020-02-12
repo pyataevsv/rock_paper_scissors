@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+<body>
+Look in console for results;
+<script>
+'use strict';
+
+function play(){
+let a = prompt("Rock, paper or scissors?");
+if (a != 'rock' && a != 'paper' && a != 'scissors') {console.log('Wrong input!'); return 0;}
+
+let ai =Math.random()*3;
+
+let compRes = (ai>0 && ai<=1) ? 'rock':
+(ai>1 && ai<=2) ? 'paper':
+(ai>2 && ai<=3) ? 'scissors':
+'WTF??';
+
+if(a.toLowerCase() == 'rock' && compRes == 'paper'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.error('Lost');
+play();
+} else if (a.toLowerCase() == 'rock' && compRes == 'scissors'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.log('%c You WIN!','font-size: 15px; background-color: green;')
+} else if (a.toLowerCase() == compRes){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.warn('The saim');
+play();
+} else if (a.toLowerCase() == 'paper' && compRes == 'scissors'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.error('Lost');
+play();
+} else if (a.toLowerCase() == 'paper' && compRes == 'rock'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.log('%c You WIN!','font-size: 15px; background-color: green;')
+} else if (a.toLowerCase() == 'scissors' && compRes == 'rock'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.error('Lost');
+play();
+} else if (a.toLowerCase() == 'scissors' && compRes == 'paper'){
+console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
+console.log('%c You WIN!','font-size: 15px; background-color: green;')
+} ;
+}
+
+play();
+
+</script>
+</body>
+</html>
