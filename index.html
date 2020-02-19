@@ -1,57 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock, paper, scissors</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-Look in console for results;
+    <header>
+        <h1>Rock, papaer, scissors.</h1>
+    </header>
+    
+    <content>
+        <div class='score-table'>
+            <div class="bage bage-you">You</div>
+            <div class="bage bage-ai">AI</div>
+            <span class="your-score">2</span> <span>:</span> <span class="ai-score">3</span>
+        </div>
+        <div class="choice-box">
+            <div class='rock-item'><img src='https://gd-m.github.io/rock-paper-scissors-app/images/rock.png' ></div>
+            <div class='paper-item'><img src='https://gd-m.github.io/rock-paper-scissors-app/images/paper.png' ></div>
+            <div class='scissors-item'><img src='https://gd-m.github.io/rock-paper-scissors-app/images/scissor.png' ></div>
+        </div>
+        <div class="res-box">
+            <p>Your choice: <span class='your-res'> rock</span></p>
+            <p>AI choice: <span class='ai-res'> rock</span></p>
+            <p>Result: <span class='game-res'> rock</span></p>
+        </div>
+    </content> 
+</body>
+
+
 <script>
-'use strict';
+    'use strict'
+    let yourScore = 0, aiScore = 0, youChoice = '', aiChoice = '';
+    
 
-function play(){
-let a = prompt("Rock, paper or scissors?");
-if (a != 'rock' && a != 'paper' && a != 'scissors') {console.log('Wrong input!'); return 0;}
+    function roundUpdate(result,aiChoice,youChoice){
+        document.querySelector('.your-score').textContent = yourScore;
+        document.querySelector('.ai-score').textContent = aiScore;
+        document.querySelector('.ai-res').textContent = aiChoice;
+        document.querySelector('.your-res').textContent = youChoice;
+        document.querySelector('.game-res').textContent = result;
+    }
 
-let ai =Math.random()*3;
+    // set play events on item's click
 
-let compRes = (ai>0 && ai<=1) ? 'rock':
-(ai>1 && ai<=2) ? 'paper':
-(ai>2 && ai<=3) ? 'scissors':
-'WTF??';
+    const rockdom = document.querySelector('.rock-item');
+    rockdom.addEventListener('click', () => {
+        play('rock');
+    });
 
-if(a.toLowerCase() == 'rock' && compRes == 'paper'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.error('Lost');
-play();
-} else if (a.toLowerCase() == 'rock' && compRes == 'scissors'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.log('%c You WIN!','font-size: 15px; background-color: green;')
-} else if (a.toLowerCase() == compRes){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.warn('The saim');
-play();
-} else if (a.toLowerCase() == 'paper' && compRes == 'scissors'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.error('Lost');
-play();
-} else if (a.toLowerCase() == 'paper' && compRes == 'rock'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.log('%c You WIN!','font-size: 15px; background-color: green;')
-} else if (a.toLowerCase() == 'scissors' && compRes == 'rock'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.error('Lost');
-play();
-} else if (a.toLowerCase() == 'scissors' && compRes == 'paper'){
-console.table([`AI:${compRes}`,`You:${a.toLocaleLowerCase()}`]);
-console.log('%c You WIN!','font-size: 15px; background-color: green;')
-} ;
-}
+    const paperdom = document.querySelector('.paper-item');
+    paperdom.addEventListener('click', (e) => {
+        play('paper');
+    });
 
-play();
+    const scissorsdom = document.querySelector('.scissors-item');
+    scissorsdom.addEventListener('click', (e) => {
+        play('scissors');
+    });
+
+
+    //play function get our choice and organize game
+
+    function play(youChoice){
+        let rand = Math.random()*3, aiChoice = 0;
+
+        if (rand > 0 && rand <= 1){   
+            aiChoice = 'rock';   
+        } else if (rand > 1 && rand <= 2){    
+            aiChoice = 'paper';         
+        } else if (rand > 2 && rand <= 3){
+            aiChoice = 'scissors';}
+        
+        console.log(aiChoice+youChoice);
+
+        switch(aiChoice + youChoice){
+            case 'rockrock':
+            case 'paperpaper':
+            case 'scissorsscissors':
+                console.log('nichya');
+                roundUpdate('nichya',aiChoice,youChoice);
+                break;
+            case 'scissorsrock':
+            case 'rockpaper': 
+            case 'paperscissors':
+                console.log('win');
+                yourScore++;
+                roundUpdate('win',aiChoice,youChoice);
+                break;
+            case 'rockscissors':
+            case 'paperrock':
+            case 'scissorspaper':
+                console.log('lost');
+                aiScore++;
+                roundUpdate('lost',aiChoice,youChoice);
+                break;
+        } 
+    }
+
+
+    //console.log(but);
 
 </script>
-</body>
 </html>
